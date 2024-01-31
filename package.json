@@ -11,6 +11,7 @@
     "react-ace": "^10.1.0",
     "react-bootstrap": "^2.10.0",
     "react-dom": "^18.2.0",
+    "react-resizable": "^3.0.5",
     "react-router-dom": "^6.21.3",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
@@ -38,5 +39,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
   }
 }

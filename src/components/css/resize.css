@@ -2,11 +2,13 @@
   display: flex;
   position: relative;
   height: 100vh;
+  background-color: whitesmoke;
 }
 
 .left-div {
-  /* background-color: lightblue; */
+  background-color: lightblue;
   height: 100%;
+
 }
 
 .vertical-splitter {

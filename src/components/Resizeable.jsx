@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import CodeEditor from './code_editor';
 import '../components/css/resize.css';
+import SettingsIcon from './SettingIcon';
 
 
 const ResizableDiv = () => {
@@ -38,7 +39,7 @@ const ResizableDiv = () => {
   };
 
   return (
-    <div className="ResizableDiv">
+    <div className="ResizableDiv ">
       <div style={{ width: verticalSplitterPos }} className="left-div">
         Question
       </div>
@@ -49,6 +50,7 @@ const ResizableDiv = () => {
       />
       <div style={{ left: verticalSplitterPos + 10 }} className="right-div">
         <div style={{ height: horizontalSplitterPos }} className="top-div">
+          <SettingsIcon/>
           <CodeEditor />
         </div>
         <div

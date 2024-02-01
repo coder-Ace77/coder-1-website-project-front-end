@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import '../components/resize.css';
+import CodeEditor from './code_editor';
+import '../components/css/resize.css';
+
 
 const ResizableDiv = () => {
   const [verticalSplitterPos, setVerticalSplitterPos] = useState(window.innerWidth / 2);
@@ -47,7 +49,7 @@ const ResizableDiv = () => {
       />
       <div style={{ left: verticalSplitterPos + 10 }} className="right-div">
         <div style={{ height: horizontalSplitterPos }} className="top-div">
-          Code Editor
+          <CodeEditor />
         </div>
         <div
           onMouseDown={handleHorizontalMouseDown}

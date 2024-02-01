@@ -12,7 +12,6 @@ function App() {
       <Routes>
         <Route path='/sign' element={<SignIn></SignIn>} />
         <Route path='/' element={<Home></Home>} />
-        <Route path='/resizeable-divs' element={<ResizableDiv/>}/>
       </Routes>
     </div>
   );

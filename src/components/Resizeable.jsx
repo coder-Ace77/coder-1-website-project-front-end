@@ -49,18 +49,8 @@ const ResizableDiv = () => {
         className="vertical-splitter"
       />
       <div style={{ left: verticalSplitterPos + 10 }} className="right-div">
-        <div style={{ height: horizontalSplitterPos }} className="top-div">
-          <SettingsIcon/>
-          <CodeEditor />
-        </div>
-        <div
-          onMouseDown={handleHorizontalMouseDown}
-          style={{ top: horizontalSplitterPos }}
-          className="horizontal-splitter"
-        />
-        <div style={{ top: horizontalSplitterPos + 10 }} className="bottom-div">
-          Test Cases
-        </div>
+        <CodeEditor />
+        <div>Status</div>
       </div>
     </div>
   );

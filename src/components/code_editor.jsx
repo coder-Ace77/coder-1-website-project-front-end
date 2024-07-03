@@ -3,64 +3,40 @@ import { useState, useReducer, useRef } from 'react';
 import axios from 'axios';
 
 const CodeEditor = (props) => {
-    const editorRef = useRef(null);
-    const TestCasesRun = () => {
-        if (editorRef.current) {
-            let value = editorRef.current.getValue();
-            axios({
-                method: 'post',
-                url: 'http://localhost:5000/testcases',
-                data: {
-                    code: value,
-                    id: props.id,
-                    language: props.language,
-                    user: props.user,
-                }
-            }).then((res) => {
-                console.log(res.data);
-                const result = res.data;
-                if (result.status === 'success') {
-                    alert('All test cases passed');
-                }
-                else {
-                    alert('Some test cases failed');
-                }
-            })
-        }
+    const [code, setCode] = useState('// Start coding here...');
+    const SubmitHandler = (e) => {
+        e.preventDefault();
+        console.log(code);
+        axios.post('http://localhost:5000/subques', {
+            "ques_name": "String",
+            "code": code,
+            "lang": "cpp",
+            "username": "sakshi",
+        }).then(response => {
+            console.log('POST request successful:', response.data);
+        })
+            .catch(error => {
+                console.error('Error making POST request:', error);
+            });
     }
 
-    const SubmitHandler = () => {
-        if (editorRef.current) {
-            let value = editorRef.current.getValue();
-            axios({
-                method: 'post',
-                url: 'http://localhost:5000/submit',
-                data: {
-                    code: value,
-                    id: props.id,
-                    language: props.language,
-                    user: props.user,
-                }
-            }).then((res) => {
-                console.log(res.data);
-                const result = res.data;
-                if (result.status === 'success') {
-                    alert('All test cases passed');
-                }
-                else {
-                    alert('Some test cases failed');
-                }
-            })
-        }
-    }
+    const handleEditorChange = (newValue, e) => {
+        setCode(newValue);
+    };
 
     return (
         <span>
-            <Editor defaultLanguage="javascript" font theme='vs-dark' options={{ fontSize: '16' }} ref={editorRef} />
-            <button onClick={TestCasesRun}>Run test cases</button>
+            <Editor
+                language="cpp"
+                theme="vs-dark"
+                defaultValue="// Start coding here..."
+                value={code}
+                onChange={handleEditorChange}
+            />
             <button onClick={SubmitHandler}>Submit</button>
         </span>
     );
 }
-
 export default CodeEditor;
+
+

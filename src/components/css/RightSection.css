@@ -1,0 +1,55 @@
+/* App.css or RightSection.css */
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.section-header select {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #555;
+    /* Darker border */
+    border-radius: 4px;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    appearance: none;
+    /* Remove default arrow */
+    background-image: linear-gradient(45deg, transparent 50%, white 50%), linear-gradient(135deg, white 50%, transparent 50%),
+        linear-gradient(to right, #333, #333);
+    /* Custom arrow */
+    background-position: calc(100% - 15px) calc(1em + 2px), calc(100% - 10px) calc(1em + 2px), calc(100% - 15px) 0;
+    background-size: 5px 5px, 5px 5px, 1px 100%;
+    background-repeat: no-repeat;
+}
+
+.section-header select:hover {
+    border-color: #aaa;
+}
+
+.section-header select:focus {
+    outline: none;
+    border-color: #66afe9;
+}
+
+.section-header .custom-button {
+    padding: 8px 16px;
+}
+
+.section-header .custom-button.green {
+    background-color: #28a745;
+    /* Lush green */
+}
+
+.section-header .custom-button.grey {
+    background-color: #6c757d;
+    /* Grey */
+}
+
+.section-header .custom-button:not(:last-child) {
+    margin-right: 10px;
+    /* Space between buttons */
+}

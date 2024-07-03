@@ -13,6 +13,8 @@ const NavBar = () => {
                     <Nav className="me-auto">
                         <Nav.Link href="https://github.com/coder-Ace77?tab=repositories">GitHub</Nav.Link>
                         <Nav.Link href="/sign">SignIn</Nav.Link>
+                        <Nav.Link href="/question_list">Questions</Nav.Link>
+                        <Nav.Link href="/add_question">Add Question</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

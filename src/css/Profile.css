@@ -1,0 +1,135 @@
+.profile-page {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.left-sidebar {
+    width: 250px;
+    padding-right: 20px;
+}
+
+.sidebar-section {
+    background-color: #2d2d2d;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+.sidebar-section h2 {
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.blog-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.left-main {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.right-sidebar {
+    width: 250px;
+    padding-left: 20px;
+}
+
+.personal-details {
+    background-color: #2d2d2d;
+    display: flex;
+    align-items: flex-start;
+    /* Align items at the start of the cross axis (top for vertical flex) */
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.profile-picture {
+    flex: 0 0 auto;
+    /* Do not grow or shrink, maintain initial size */
+    margin-right: 20px;
+}
+
+.details {
+    flex: 1;
+    /* Grow to fill remaining space */
+}
+
+.detail-item {
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.detail-label {
+    font-weight: bold;
+    min-width: 150px;
+    /* Adjust as needed for label width */
+}
+
+.detail-value {
+    flex: 1;
+    /* Grow to fill remaining space */
+}
+.rating-graph {
+    width: 100%;
+    margin-top: 20px;
+    background-color: #2d2d2d;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.graph-components {
+    display: flex;
+    justify-content: space-between;
+}
+
+.graph-components>div {
+    flex: 1;
+    margin: 0 10px;
+}
+
+.comp1,
+.comp2 {
+    background-color: #2d2d2d;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    color: #fff;
+}
+
+.solved-questions {
+    background-color: #2d2d2d;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.question-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.right-sidebar>div {
+    background-color: #2d2d2d;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.solver-list,
+.recent-questions .question-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+    .profile-page {
+        flex-direction: column;
+    }
+
+    .right-sidebar {
+        width: 100%;
+        margin-top: 20px;
+    }
+}

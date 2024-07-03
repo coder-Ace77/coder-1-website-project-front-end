@@ -1,0 +1,24 @@
+.custom-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.custom-list li {
+    padding: 10px;
+}
+
+.custom-list .even {
+    background-color: #5e5a5a;
+    text-align: center;
+    margin: 10px 0px;
+    border-radius: 5px;
+    /* Light grey */
+}
+
+.custom-list .odd {
+    background-color: #4b4a4a;
+    text-align: center;
+    margin: 10px 0px;
+    border-radius: 5px;
+    /* Dark grey */
+}

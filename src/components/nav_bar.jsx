@@ -15,6 +15,7 @@ const NavBar = () => {
                         <Nav.Link href="/sign">SignIn</Nav.Link>
                         <Nav.Link href="/question_list">Questions</Nav.Link>
                         <Nav.Link href="/add_question">Add Question</Nav.Link>
+                        <Nav.Link href='/profile'>Profile</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

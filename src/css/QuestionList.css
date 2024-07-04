@@ -1,0 +1,29 @@
+/* QuestionListPage.css */
+
+.question-list-page {
+    padding: 20px;
+    background-color: #1e1e1e;
+    color: #c0c0c0;
+}
+
+h2 {
+    text-align: center;
+}
+
+.question-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.question-item {
+    padding: 10px;
+    background-color: #2d2d2d;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.question-item:hover {
+    background-color: #3e3e3e;
+}

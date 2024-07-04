@@ -6,7 +6,7 @@ import SignIn from "./pages/Auth";
 import { useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import QuestionList from "./components/Problems";
+import QuestionList from "./pages/QuestionList";
 import AddQuestion from "./pages/AddQuestion";
 import ProfilePage from "./pages/Profile";
 
@@ -17,10 +17,10 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/sign" element={<SignIn></SignIn>} />
-        <Route path="/" element={<Home></Home>} />
-        <Route path="/question_list" element={<QuestionList></QuestionList>} />
+        <Route path="/questionlist" element={<QuestionList></QuestionList>} />
         <Route path="/add_question" element={<AddQuestion></AddQuestion>}/>
         <Route path="/profile" element={<ProfilePage></ProfilePage>}/>
+        <Route path="/ques/:quesName" element={<Home></Home>}/>
       </Routes>
     </div>
   );

@@ -14,6 +14,7 @@ const AddQuestion = () => {
         sampleOutput: '',
         tags: '',
         timeLimit: '',
+        constraints: '',
         memoryLimit: '',
         editorial: ''
     });
@@ -43,11 +44,13 @@ const AddQuestion = () => {
     const confirmSubmit = async () => {
         setShowPopup(false);
         try {
-            const response = await axios.post('http://localhost:5000/addquestion', {
+            const response = await axios.post('http://localhost:5000/addquestion',{
                 ...questionData,
                 testCases
             });
-            setShowMessage({ text: 'Submitted successfully!', type: 'success' });
+            const type = response.data.success ? 'success' : 'error';
+            const text = response.data.success ? 'Question added successfully' : "Failed";
+            setShowMessage({ text: text, type: type});
             setTimeout(() => setShowMessage(null), 5000);
         } catch (error) {
             setShowMessage({ text: 'Server busy. Please try again later.', type: 'error' });
@@ -94,6 +97,9 @@ const AddQuestion = () => {
 
                 <h2 className="heading">Memory Limit</h2>
                 <TextareaAutosize className="textarea" placeholder="Enter memory limit" value={questionData.memoryLimit} onChange={(e) => handleInputChange('memoryLimit', e.target.value)} />
+
+                <h2 className="heading">Constraints</h2>
+                <TextareaAutosize className="textarea" placeholder="Enter constraints" value={questionData.constraints} onChange={(e) => handleInputChange('constraints', e.target.value)} />
 
                 <h2 className="heading">Editorial</h2>
                 <TextareaAutosize className="textarea large" placeholder="Enter editorial" value={questionData.editorial} onChange={(e) => handleInputChange('editorial', e.target.value)} />
@@ -157,16 +163,10 @@ const AddQuestion = () => {
                             <strong>Memory Limit:</strong> <div>{questionData.memoryLimit}</div>
                         </div>
                         <div>
-                            <strong>Editorial:</strong> <div>{questionData.editorial}</div>
+                            <strong>Constraints:</strong> <div>{questionData.constraints}</div>
                         </div>
-                        <div className="test-cases">
-                            <strong>Test Cases:</strong>
-                            {testCases.map((testCase, index) => (
-                                <div key={index}>
-                                    <p><strong>Test Input {index + 1}:</strong> <div>{testCase.input}</div></p>
-                                    <p><strong>Test Output {index + 1}:</strong> <div>{testCase.output}</div></p>
-                                </div>
-                            ))}
+                        <div>
+                            <strong>Editorial:</strong> <div>{questionData.editorial}</div>
                         </div>
                         <div className="button-container">
                             <button className="confirm" onClick={confirmSubmit}>OK</button>

@@ -7,10 +7,6 @@ body {
     overflow-x: hidden;
 }
 
-.App {
-    padding: 20px;
-}
-
 .message {
     position: fixed;
     top: 20px;

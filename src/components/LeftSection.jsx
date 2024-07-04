@@ -1,13 +1,13 @@
-// LeftSection.js
-
 import React, { useState } from 'react';
 import ToggleButton from './ToggleButton';
 import './css/LeftSection.css';
+import ProblemDescription from './ProblemDescription';
+import Editorial from './Editorial';
 
 const LeftSection = () => {
     const [activeSection, setActiveSection] = useState('description'); // Default active section
 
-    const handleSectionChange = (section) => {
+    const handleSectionChange = (section) =>{
         setActiveSection(section);
     };
 
@@ -44,10 +44,8 @@ const LeftSection = () => {
                 </ToggleButton>
             </div>
             <div className="section-content">
-                {/* Render content based on activeSection */}
-                {/* Example: */}
-                {activeSection === 'description' && <div>Problem Description Section</div>}
-                {activeSection === 'editorial' && <div>Editorial Section</div>}
+                {activeSection === 'description' && <div><ProblemDescription/></div>}
+                {activeSection === 'editorial' && <div><Editorial/></div>}
                 {activeSection === 'submission' && <div>Submission Section</div>}
                 {activeSection === 'testcases' && <div>Test Cases Section</div>}
             </div>

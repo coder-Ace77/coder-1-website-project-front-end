@@ -53,3 +53,40 @@
     margin-right: 10px;
     /* Space between buttons */
 }
+
+.notification {
+    position: fixed;
+    top: 10%;   
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 5px;
+    color: #fff;
+    opacity: 0.9;
+    z-index: 1000;
+    animation: fadeout 5s forwards;
+}
+
+.notification.success {
+    background-color: #4caf50;
+    /* green */
+}
+
+.notification.error {
+    background-color: #f44336;
+    /* red */
+}
+
+@keyframes fadeout {
+    0% {
+        opacity: 0.9;
+    }
+
+    80% {
+        opacity: 0.9;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}

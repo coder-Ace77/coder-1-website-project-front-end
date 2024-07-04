@@ -9,8 +9,8 @@ const Home = () => {
         <div className="home">
             <NavBar />
             <div className="main-container">
-                <LeftSection />
-                <RightSection />
+                <LeftSection/>
+                <RightSection/>
             </div>
         </div>
     );

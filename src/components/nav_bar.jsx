@@ -1,25 +1,54 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './css/NavBar.css';
 
 const NavBar = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [username, setUsername] = useState('');
+
+    useEffect(() => {
+        axios.get('http://localhost:5000/checklogin')
+            .then(response => {
+                if (response.data.isLoggedIn) {
+                    setIsLoggedIn(true);
+                    setUsername(response.data.username);
+                }
+            })
+            .catch(error => {
+                console.error('Error checking login status:', error);
+            });
+    }, []);
+
+    const handleLogout = () => {
+        axios.post('http://localhost:5000/logout').then(response => {
+                if (response.data.code === 200) {
+                    setIsLoggedIn(false);
+                    setUsername('');
+                }
+            }).catch(error => {
+                console.error('Error logging out:', error);
+            });
+    };
 
     return (
-        <Navbar expand="lg" className="bg-body-tertiary" bg="dark" data-bs-theme="dark">
-            <Container>
-                <Navbar.Brand href="/">Coder-1-Project</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        <Nav.Link href="https://github.com/coder-Ace77?tab=repositories">GitHub</Nav.Link>
-                        <Nav.Link href="/sign">SignIn</Nav.Link>
-                        <Nav.Link href="/questionlist">Questions</Nav.Link>
-                        <Nav.Link href="/add_question">Add Question</Nav.Link>
-                        <Nav.Link href='/profile'>Profile</Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
+        <nav className="navbar">
+            <div className="container">
+                <a href="/" className="brand">Coder-1-Project</a>
+                <div className="links">
+                    <a href="https://github.com/coder-Ace77?tab=repositories">GitHub</a>
+                    <a href="/sign">SignIn</a>
+                    <a href="/questionlist">Questions</a>
+                    <a href="/add_question">Add Question</a>
+                    <a href="/profile">Profile</a>
+                </div>
+                {isLoggedIn && (
+                    <div className="user-info">
+                        <span className="username">{username}</span>
+                        <button onClick={handleLogout} className="logout-button">Logout</button>
+                    </div>
+                )}
+            </div>
+        </nav>
     );
 }
 

@@ -11,7 +11,6 @@ import AddQuestion from "./pages/AddQuestion";
 import ProfilePage from "./pages/Profile";
 
 function App() {
-  useEffect(() => { }, []);
 
   return (
     <div className="App">

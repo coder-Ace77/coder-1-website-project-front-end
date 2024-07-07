@@ -18,7 +18,7 @@ const RightSection = () => {
             lang: 'cpp'
         };
 
-        axios.post('http://localhost:5000/submit', submissionData)
+        axios.post('http://localhost:5000/submit', submissionData, {withCredentials: true})
             .then(response => {
                 const { status, message } = response.data;
                 console.log('Submission successful:', response.data);

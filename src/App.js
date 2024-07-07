@@ -11,17 +11,17 @@ import AddQuestion from "./pages/AddQuestion";
 import ProfilePage from "./pages/Profile";
 
 function App() {
-
   return (
     <div className="App">
       <Routes>
         <Route path="/sign" element={<SignIn></SignIn>} />
         <Route path="/questionlist" element={<QuestionList></QuestionList>} />
-        <Route path="/add_question" element={<AddQuestion></AddQuestion>}/>
-        <Route path="/profile" element={<ProfilePage></ProfilePage>}/>
-        <Route path="/ques/:quesName" element={<Home></Home>}/>
+        <Route path="/add_question" element={<AddQuestion></AddQuestion>} />
+        <Route path="/profile" element={<ProfilePage></ProfilePage>} />
+        <Route path="/ques/:quesName" element={<Home></Home>} />
       </Routes>
     </div>
   );
 }
+
 export default App;

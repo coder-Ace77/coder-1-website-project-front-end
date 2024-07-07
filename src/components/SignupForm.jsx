@@ -16,7 +16,7 @@ const SignupForm = () => {
             email: formData.get('email'),
             password: formData.get('password'),
             confirmPassword: formData.get('confirmPassword'),
-            fullName: formData.get('fullName'),
+            name: formData.get('fullName'),
             institute: formData.get('institute'),
         };
 

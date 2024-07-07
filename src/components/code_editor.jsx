@@ -12,7 +12,7 @@ const CodeEditor = (props) => {
             "code": code,
             "lang": "cpp",
             "username": "sakshi",
-        }).then(response => {
+        }, { withCredentials : true } ).then(response => {
             console.log('POST request successful:', response.data);
         })
             .catch(error => {

@@ -20,7 +20,7 @@ const NavBar = () => {
     }, []);
 
     const handleLogout = () => {
-        axios.post('http://localhost:5000/logout').then(response => {
+        axios.get('http://localhost:5000/logout',{withCredentials:true}).then(response => {
                 if (response.data.code === 200) {
                     setIsLoggedIn(false);
                     setUsername('');

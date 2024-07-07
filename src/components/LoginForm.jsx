@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './css/AuthForm.css';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
     const [showPopup, setShowPopup] = useState(false);
     const [popupMessage, setPopupMessage] = useState('');
     const [popupStatus, setPopupStatus] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,10 +19,12 @@ const LoginForm = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:5000/login', loginData , {withCredentials: true});
+            const response = await axios.post('http://localhost:5000/login', loginData, { withCredentials: true });
+            console.log(response.data.code);
             if (response.data.code === 200) {
                 setPopupMessage('Login successful!');
                 setPopupStatus('success');
+                navigate('/profile');
             } else {
                 setPopupMessage('Login failed!');
                 setPopupStatus('error');

@@ -7,7 +7,7 @@ const NavBar = () => {
     const [username, setUsername] = useState('');
 
     useEffect(() => {
-        axios.get('http://localhost:5000/checklogin')
+        axios.get('http://localhost:5000/checklogin' , {withCredentials: true})
             .then(response => {
                 if (response.data.isLoggedIn) {
                     setIsLoggedIn(true);

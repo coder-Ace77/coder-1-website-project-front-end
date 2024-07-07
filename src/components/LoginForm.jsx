@@ -19,7 +19,6 @@ const LoginForm = () => {
         try {
             const response = await axios.post('http://localhost:5000/login', loginData , {withCredentials: true});
             if (response.data.code === 200) {
-                console.log("Cookie info",document.cookies);
                 setPopupMessage('Login successful!');
                 setPopupStatus('success');
             } else {

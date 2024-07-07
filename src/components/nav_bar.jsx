@@ -39,11 +39,10 @@ const NavBar = () => {
                     <a href="/sign">SignIn</a>
                     <a href="/questionlist">Questions</a>
                     <a href="/add_question">Add Question</a>
-                    <a href="/profile">Profile</a>
                 </div>
                 {isLoggedIn && (
                     <div className="user-info">
-                        <span className="username">{username}</span>
+                        <a href="/profile" className='username'>{username}</a>
                         <button onClick={handleLogout} className="logout-button">Logout</button>
                     </div>
                 )}

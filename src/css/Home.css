@@ -1,54 +1,140 @@
-body {
+/* Home.css */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.home-page {
     font-family: Arial, sans-serif;
-    background-color: #1e1e1e;
-    color: #fff;
+    color: #333;
+    overflow-x: hidden;
+    padding: 0 20px;
 }
 
-.home {
+.hero-section {
+    background: linear-gradient(135deg, #007BFF 30%, #00FF7F 100%);
+    padding: 100px 20px;
     display: flex;
-    flex-direction: column;
-    height: calc(100vh);
-}
-
-.main-container {
-    display: flex;
-    flex: 1;
-    overflow: hidden;
-    height: 90vh;
-    padding-top: 10px;
-}
-
-.navbar-placeholder {
-    background-color: #333;
-    padding: 10px;
-    text-align: center;
-}
-
-.section-content {
-    margin-top: 10px;
-}
-
-.right-section {
-    flex: 1;
-    background-color: #1e1e1e;
-    padding: 20px;
-    overflow-y: auto;
-}
-
-.section-header {
-    display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    flex-direction: column;
+    color: white;
+    text-align: center;
+    width: calc(100% - 40px); /* Aligns with content sections */
+    margin: 0 auto; /* Center the hero section */
+}
+
+.hero-content h1 {
+    font-size: 3rem;
     margin-bottom: 10px;
 }
 
-.monaco-editor {
-    height:max(50px,80vh);
-    border: 1px solid #333;
-    border-radius: 4px;
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.cta-button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    color: white;
+    background-color: #ff6347;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #e5533c;
+}
+
+.content-section {
+    padding: 50px 20px;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #333;
+    width: calc(100% - 40px); /* Aligns with hero section */
+    margin: 0 auto; /* Center the content section */
+}
+
+.paragraph-container {
+    max-width: 800px;
+    padding: 20px;
+    margin: 20px 0;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
     overflow: hidden;
 }
 
-.monaco-editor .editor {
-    height: 100%;
+.paragraph-container.right {
+    align-self: flex-end;
+    animation: slideInFromRight 1s forwards;
+}
+
+.paragraph-container.left {
+    align-self: flex-start;
+    animation: slideInFromLeft 1s forwards;
+}
+
+@keyframes slideInFromRight {
+    0% {
+        opacity: 0;
+        transform: translateX(100vw); /* Start from outside the viewport */
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-100vw); /* Start from outside the viewport */
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.footer {
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    width: calc(100% - 40px); /* Aligns with hero and content sections */
+    margin: 0 auto; /* Center the footer */
+}
+
+.hero-animation {
+    /* Add your animation or illustration styles here */
+}
+
+.benefits-section {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #f1f1f1;
+}
+
+.benefits-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.benefit-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
 }

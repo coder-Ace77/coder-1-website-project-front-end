@@ -29,14 +29,13 @@ const HomePage = () => {
                 </div>
                 <div className="paragraph-container left">
                     <h2>Second Heading</h2>
-                    <p>Dummy text for the second paragraph. Explaining more benefits and features.</p>
+                    <p>Dummy text for the second paragraph. Explaining more benefits and features.Dummy text for the second paragraph. Explaining more benefits and features.Dummy text for the second paragraph. Explaining more benefits and features.Dummy text for the second paragraph. Explaining more benefits and features.</p>
                 </div>
                 <div className="paragraph-container right">
                     <h2>Third Heading</h2>
-                    <p>Dummy text for the third paragraph. Final remarks and call to action.</p>
+                    <p>Dummy text for the third paragraph. Final remarks and call to action.Dummy text for the second paragraph. Explaining more benefits and features.Dummy text for the second paragraph. Explaining more benefits and features.Dummy text for the second paragraph. Explaining more benefits and features.Dummy text for the second paragraph. Explaining more benefits and features.Dummy text for the second paragraph. Explaining more benefits and features.</p>
                 </div>
             </section>
-
             <footer className="footer">
                 <p>&copy; 2024 Your Platform Name. All rights reserved.</p>
             </footer>

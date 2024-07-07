@@ -8,8 +8,11 @@
 .home-page {
     font-family: Arial, sans-serif;
     color: #333;
+    background-image: url('../img/back.jpg');
+    background-size: cover;
+    background-position: center;
     overflow-x: hidden;
-    padding: 0 20px;
+    /* padding: 0 20px; */
 }
 
 .hero-section {
@@ -21,8 +24,7 @@
     flex-direction: column;
     color: white;
     text-align: center;
-    width: calc(100% - 40px); /* Aligns with content sections */
-    margin: 0 auto; /* Center the hero section */
+    /* width: calc(100% - 40px); Aligns with content sections */
 }
 
 .hero-content h1 {
@@ -51,20 +53,19 @@
 }
 
 .content-section {
-    padding: 50px 20px;
-    background-color: #f9f9f9;
+    /* padding: 50px 20px; */
+    /* background-color: rgba(255, 255, 255, 0.202); Transparent white background */
     display: flex;
     flex-direction: column;
     align-items: center;
     color: #333;
-    width: calc(100% - 40px); /* Aligns with hero section */
     margin: 0 auto; /* Center the content section */
 }
 
 .paragraph-container {
     max-width: 800px;
     padding: 20px;
-    margin: 20px 0;
+    margin: 50px 30px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -85,7 +86,7 @@
 @keyframes slideInFromRight {
     0% {
         opacity: 0;
-        transform: translateX(100vw); /* Start from outside the viewport */
+        transform: translateX(100vw);
     }
     100% {
         opacity: 1;
@@ -105,17 +106,15 @@
 }
 
 .footer {
-    padding: 20px;
+    padding: 40px;
     background-color: #333;
     color: white;
     text-align: center;
-    width: calc(100% - 40px); /* Aligns with hero and content sections */
     margin: 0 auto; /* Center the footer */
 }
 
-.hero-animation {
-    /* Add your animation or illustration styles here */
-}
+/* .hero-animation {
+} */
 
 .benefits-section {
     text-align: center;

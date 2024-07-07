@@ -7,20 +7,14 @@
     font-family: 'Arial', sans-serif;
 }
 
-h2 {
-    text-align: center;
-    color: #00ff00;
-    /* Lush green for title */
-}
-
 .section {
     margin-bottom: 20px;
 }
 
 .section h3 {
-    color: #00ff00;
+    color: #699e69;
     /* Lush green for section headings */
-    border-bottom: 2px solid #00ff00;
+    border-bottom: 2px solid #8aad8a;
     padding-bottom: 5px;
     margin-bottom: 10px;
 }
@@ -63,7 +57,7 @@ pre {
 
 .section h3 {
     font-size: 1.2em;
-    color: #00ff00;
+    color: #6d976d;
 }
 
 .section {

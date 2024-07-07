@@ -8,17 +8,39 @@ import './css/RightSection.css';
 const RightSection = () => {
     const { quesName } = useParams();
     const [code, setCode] = useState('// Write your code here');
+    const [language, setLanguage] = useState('cpp'); // Default language
     const [notification, setNotification] = useState({ show: false, message: '', isSuccess: false });
+
+    useEffect(() => {
+        const savedCode = localStorage.getItem(`${quesName}-${language}-code`);
+        if (savedCode) {
+            setCode(savedCode);
+        }
+    }, [quesName, language]);
+
+    const handleLanguageChange = (e) => {
+        setLanguage(e.target.value);
+        const savedCode = localStorage.getItem(`${quesName}-${e.target.value}-code`);
+        if (savedCode) {
+            setCode(savedCode);
+        } else {
+            setCode('// Write your code here');
+        }
+    };
+
+    const handleEditorChange = (value) => {
+        setCode(value);
+        localStorage.setItem(`${quesName}-${language}-code`, value);
+    };
 
     const handleSubmit = () => {
         const submissionData = {
-            user: 'dummyUser',
             code: code,
             name: quesName,
-            lang: 'cpp'
+            lang: language
         };
 
-        axios.post('http://localhost:5000/submit', submissionData, {withCredentials: true})
+        axios.post('http://localhost:5000/submit', submissionData, { withCredentials: true })
             .then(response => {
                 const { status, message } = response.data;
                 console.log('Submission successful:', response.data);
@@ -38,9 +60,12 @@ const RightSection = () => {
     return (
         <div className="right-section">
             <div className="section-header">
-                <select>
-                    <option value="javascript">JavaScript</option>
+                <select value={language} onChange={handleLanguageChange} className="language-select">
+                    <option value="cpp">C++</option>
+                    <option value="c">C</option>
                     <option value="python">Python</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="java">Java</option>
                 </select>
                 <div>
                     <CustomButton color="grey">
@@ -53,10 +78,10 @@ const RightSection = () => {
             </div>
             <div className="monaco-editor">
                 <Editor
-                    language="cpp"
+                    language={language === 'c' ? 'cpp' : language} // Adjusting for C to default to C++
                     theme="vs-dark"
-                    defaultValue="// Start coding here..."
-                    onChange={(value, event) => { setCode(value); }}
+                    value={code}
+                    onChange={handleEditorChange}
                 />
             </div>
             {notification.show && (
@@ -69,4 +94,3 @@ const RightSection = () => {
 };
 
 export default RightSection;
-

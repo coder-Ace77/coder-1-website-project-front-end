@@ -25,7 +25,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './css/CustomList.css';
 
-const CustomList = ({ items, isLink = false, baseLink = "" }) => {
+const CustomList = ({ items, isLink = false, baseLink = ""}) => {
     return (
         <ul className="custom-list">
             {items.map((item, index) => (

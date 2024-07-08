@@ -8,6 +8,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import QuestionList from "./pages/QuestionList";
 import AddQuestion from "./pages/AddQuestion";
 import ProfilePage from "./pages/Profile";
+import SubmissionView from "./pages/SubmissionView";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/add_question" element={<AddQuestion></AddQuestion>} />
         <Route path="/profile" element={<ProfilePage></ProfilePage>} />
         <Route path="/ques/:quesName" element={<Code></Code>} />
+        <Route path="/submission/view/:id" element={<SubmissionView></SubmissionView>} />
         <Route path="/" element={<Home></Home>} />
       </Routes>
     </div>

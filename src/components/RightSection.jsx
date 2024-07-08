@@ -1,3 +1,4 @@
+// src/components/RightSection.js
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Editor from '@monaco-editor/react';
@@ -5,7 +6,7 @@ import axios from 'axios';
 import CustomButton from './CustomButton';
 import './css/RightSection.css';
 
-const RightSection = () => {
+const RightSection = ({ onSubmissionSuccess }) => {
     const { quesName } = useParams();
     const [code, setCode] = useState('// Write your code here');
     const [language, setLanguage] = useState('cpp'); // Default language
@@ -45,6 +46,9 @@ const RightSection = () => {
                 const { status, message } = response.data;
                 console.log('Submission successful:', response.data);
                 setNotification({ show: true, message, isSuccess: status });
+                if (status) {
+                    onSubmissionSuccess();
+                }
                 setTimeout(() => {
                     setNotification({ show: false, message: '', isSuccess: false });
                 }, 5000);

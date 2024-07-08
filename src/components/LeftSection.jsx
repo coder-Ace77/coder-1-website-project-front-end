@@ -1,5 +1,5 @@
 // src/components/LeftSection.js
-import React, { useState  } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import ToggleButton from './ToggleButton';
 import './css/LeftSection.css';
@@ -7,14 +7,8 @@ import ProblemDescription from './ProblemDescription';
 import Editorial from './Editorial';
 import SubmissionSection from './SubmissionSection';
 
-const LeftSection = () => {
-    const [activeSection, setActiveSection] = useState('description'); // Default active section
+const LeftSection = ({ activeSection, onSectionChange }) => {
     const { quesName } = useParams();
-
-
-    const handleSectionChange = (section) => {
-        setActiveSection(section);
-    };
 
     return (
         <div className="left-section">
@@ -22,28 +16,28 @@ const LeftSection = () => {
                 <ToggleButton
                     color={'grey'}
                     active={activeSection === 'description'}
-                    onClick={() => handleSectionChange('description')}
+                    onClick={() => onSectionChange('description')}
                 >
                     Problem Description
                 </ToggleButton>
                 <ToggleButton
                     color={'grey'}
                     active={activeSection === 'editorial'}
-                    onClick={() => handleSectionChange('editorial')}
+                    onClick={() => onSectionChange('editorial')}
                 >
                     Editorial
                 </ToggleButton>
                 <ToggleButton
                     color={'grey'}
                     active={activeSection === 'testcases'}
-                    onClick={() => handleSectionChange('testcases')}
+                    onClick={() => onSectionChange('testcases')}
                 >
                     Test Cases
                 </ToggleButton>
                 <ToggleButton
                     color={'grey'}
                     active={activeSection === 'submission'}
-                    onClick={() => handleSectionChange('submission')}
+                    onClick={() => onSectionChange('submission')}
                 >
                     Submission
                 </ToggleButton>

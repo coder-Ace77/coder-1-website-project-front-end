@@ -4,10 +4,8 @@ import '../css/Profile.css';
 import CustomList from '../components/CustomList';
 import NavBar from '../components/nav_bar';
 import ProfilePicture from '../components/ProfilePicture';
-import HeatMap from '@uiw/react-heat-map';
-import LineChart from 'react-linechart';
 import { Link } from 'react-router-dom';
-import '../../node_modules/react-linechart/dist/styles.css';
+import TagBarGraph from '../components/BargraphSolved';
 
 const ProfilePage = () => {
     const [userData, setUserData] = useState(null);
@@ -126,24 +124,7 @@ const ProfilePage = () => {
                     </div>
 
                     <div className="rating-graph">
-                        <h2>Rating Graph</h2>
-                        <div className="graph-components">
-                            <HeatMap
-                                className='comp1'
-                                width={500}
-                                style={{ color: '#ad001d', '--rhm-rect-active': 'red' }}
-                                startDate={new Date('2016/01/01')}
-                                value={value}
-                                weekLabels={['', 'Mon', '', 'Wed', '', 'Fri', '']}
-                            />
-                            <LineChart
-                                className='comp2'
-                                width={500}
-                                height={200}
-                                data={data}
-                                color="steelblue"
-                            />
-                        </div>
+                        <TagBarGraph/>
                     </div>
 
                     <div className="solved-questions">

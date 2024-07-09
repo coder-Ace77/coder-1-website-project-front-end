@@ -1,4 +1,3 @@
-// src/components/RightSection.js
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Editor from '@monaco-editor/react';

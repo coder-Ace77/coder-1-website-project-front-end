@@ -1,4 +1,3 @@
-// src/pages/Code.js
 import React, { useState } from 'react';
 import NavBar from '../components/nav_bar';
 import LeftSection from '../components/LeftSection';
@@ -12,12 +11,20 @@ const Code = () => {
         setActiveSection(section);
     };
 
+    const handleSubmissionResponse = (status) => {
+        if (status) {
+            setActiveSection('submission');
+        } else {
+            setActiveSection('description');
+        }
+    };
+
     return (
         <div className="home">
             <NavBar />
             <div className="main-container">
                 <LeftSection activeSection={activeSection} onSectionChange={handleSectionChange} />
-                <RightSection onSubmissionSuccess={() => handleSectionChange('submission')} />
+                <RightSection onSubmissionResponse={handleSubmissionResponse} />
             </div>
         </div>
     );

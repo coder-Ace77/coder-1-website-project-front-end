@@ -22,7 +22,7 @@ const ProfilePage = () => {
                     console.log('User is logged in');
                     console.log(response.data.user);
                     setUserData(response.data.user);
-                    setSolvedQuestions(response.data.user.solved_ques);
+                    setSolvedQuestions(response.data.user.solved_ques.reverse());
                     const dailyLog = response.data.user.dailyLog.map(log => ({
                         date: new Date(log.date).toISOString().split('T')[0],
                         count: log.solved
@@ -52,7 +52,7 @@ const ProfilePage = () => {
                             name: item.name,
                             link: `/submission/view/${item._id}`    
                         }
-                    });
+                    }).reverse();
                     setSubmissions(arr);
                 }
             } catch (error) {
@@ -72,13 +72,13 @@ const ProfilePage = () => {
         <div>
             <NavBar />
             <div className="profile-page">
-                <div className="left-sidebar">
+                <div className="left-sidebar expanded">
                     <div className="sidebar-section">
                         <h2>Submissions</h2>
                         <ul className="custom-list">
-                            {submissions.map((item,index) => (
+                            {submissions.map((item, index) => (
                                 <li key={index} className={index % 2 === 0 ? 'even' : 'odd'}>
-                                        <Link to={item.link} className="custom-link">{item.name}</Link>
+                                    <Link to={item.link} className="custom-link">{item.name}</Link>
                                 </li>
                             ))}
                         </ul>
@@ -118,30 +118,18 @@ const ProfilePage = () => {
                                 <div className="detail-value">{userData.institute}</div>
                             </div>
                         </div>
-                        <div className="profile-picture">
-                            <ProfilePicture src={userData.image || 'default_profile_image.png'} alt="Profile Picture" />
+                        <div className="profile-picture-container">
+                            <ProfilePicture src={userData.image || 'https://gratisography.com/wp-content/uploads/2024/01/gratisography-cyber-kitty-800x525.jpg'} alt="Profile Picture" />
                         </div>
                     </div>
 
                     <div className="rating-graph">
-                        <TagBarGraph/>
+                        <TagBarGraph />
                     </div>
 
                     <div className="solved-questions">
                         <h2>Solved Questions</h2>
                         <CustomList items={userData.solved_ques} isLink={true} baseLink="/ques" />
-                    </div>
-                </div>
-
-                <div className="right-sidebar">
-                    <div className="top-solvers">
-                        <h2>Top Problem Solvers</h2>
-                        <CustomList items={['User A', 'User A', 'User A', 'User A', 'User A']} />
-                    </div>
-
-                    <div className="recent-questions">
-                        <h2>Recent Questions Added</h2>
-                        <CustomList items={['Ques 1', 'Ques 1', 'Ques 1', 'Ques 1', 'Ques 1', 'Ques 1', 'Ques 1', 'Ques 1']} />
                     </div>
                 </div>
             </div>

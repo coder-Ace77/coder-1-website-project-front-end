@@ -33,6 +33,11 @@ const AddQuestion = () => {
         setTestCases(newTestCases);
     };
 
+    const handleRemoveTestCase = (index) => {
+        const newTestCases = testCases.filter((_, i) => i !== index);
+        setTestCases(newTestCases);
+    };
+
     const handleInputChange = (field, value) => {
         setQuestionData({ ...questionData, [field]: value });
     };
@@ -44,13 +49,13 @@ const AddQuestion = () => {
     const confirmSubmit = async () => {
         setShowPopup(false);
         try {
-            const response = await axios.post('http://localhost:5000/addquestion',{
+            const response = await axios.post('http://localhost:5000/addquestion', {
                 ...questionData,
                 testCases
             });
             const type = response.data.success ? 'success' : 'error';
             const text = response.data.success ? 'Question added successfully' : "Failed";
-            setShowMessage({ text: text, type: type});
+            setShowMessage({ text: text, type: type });
             setTimeout(() => setShowMessage(null), 5000);
         } catch (error) {
             setShowMessage({ text: 'Server busy. Please try again later.', type: 'error' });
@@ -64,7 +69,7 @@ const AddQuestion = () => {
 
     return (
         <div className="App">
-            <NavBar/>
+            <NavBar />
             {showMessage && (
                 <div className={`message ${showMessage.type}`}>
                     {showMessage.text}
@@ -114,7 +119,6 @@ const AddQuestion = () => {
                                 value={testCase.input}
                                 onChange={(e) => handleChangeTestCase(index, 'input', e.target.value)}
                             />
-
                             <h2 className="heading">Test Output {index + 1}</h2>
                             <textarea
                                 className="scrollable-textarea"
@@ -122,6 +126,7 @@ const AddQuestion = () => {
                                 value={testCase.output}
                                 onChange={(e) => handleChangeTestCase(index, 'output', e.target.value)}
                             />
+                            <button className="remove-test-case-btn" onClick={() => handleRemoveTestCase(index)}>Remove</button>
                         </div>
                     ))}
                 </div>

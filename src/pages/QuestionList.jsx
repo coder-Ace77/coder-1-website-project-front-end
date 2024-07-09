@@ -25,20 +25,30 @@ const QuestionListPage = () => {
     return (
         <div>
             <NavBar />
-        <div className="question-list-page">
-            <div className="question-list">
-                {questions.map((question, index) => (
-                    <div
-                        key={index}
-                        className="question-item"
-                        onClick={() => handleQuestionClick(question.name)}
-                    >
-                        {question.name}
-                    </div>
-                ))}
+            <div className="question-list-page">
+                <div className="search-tags-section">
+                    <input type="text" placeholder="Search questions..." className="search-bar" />
+                </div>
+                <div className="horizontal-question-list">
+                    {questions.map((question, index) => (
+                        index%2 === 0 ?
+                        <div
+                            key={index}
+                            className="question-item-even"
+                            onClick={() => handleQuestionClick(question)}
+                        >
+                            {question}
+                        </div>: <div
+                            key={index}
+                            className="question-item-odd"
+                            onClick={() => handleQuestionClick(question)}
+                        >
+                            {question}
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
-    </div>
     );
 };
 

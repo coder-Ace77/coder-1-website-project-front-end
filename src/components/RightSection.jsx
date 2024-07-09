@@ -5,11 +5,12 @@ import axios from 'axios';
 import CustomButton from './CustomButton';
 import './css/RightSection.css';
 
-const RightSection = ({ onSubmissionSuccess }) => {
+const RightSection = ({ onSubmissionResponse }) => {
     const { quesName } = useParams();
     const [code, setCode] = useState('// Write your code here');
     const [language, setLanguage] = useState('cpp'); // Default language
     const [notification, setNotification] = useState({ show: false, message: '', isSuccess: false });
+    const [showPopup, setShowPopup] = useState(false); // State for showing popup
 
     useEffect(() => {
         const savedCode = localStorage.getItem(`${quesName}-${language}-code`);
@@ -34,6 +35,8 @@ const RightSection = ({ onSubmissionSuccess }) => {
     };
 
     const handleSubmit = () => {
+        setShowPopup(true); // Show the popup when submission starts
+
         const submissionData = {
             code: code,
             name: quesName,
@@ -45,15 +48,16 @@ const RightSection = ({ onSubmissionSuccess }) => {
                 const { status, message } = response.data;
                 console.log('Submission successful:', response.data);
                 setNotification({ show: true, message, isSuccess: status });
-                if (status) {
-                    onSubmissionSuccess();
-                }
+                onSubmissionResponse(status); // Notify parent about submission status
+                setShowPopup(false); // Hide the popup after response
                 setTimeout(() => {
                     setNotification({ show: false, message: '', isSuccess: false });
                 }, 5000);
             })
             .catch(error => {
                 setNotification({ show: true, message: 'Server error, please try again later.', isSuccess: false });
+                onSubmissionResponse(false); // Notify parent about submission failure
+                setShowPopup(false); // Hide the popup after error
                 setTimeout(() => {
                     setNotification({ show: false, message: '', isSuccess: false });
                 }, 5000);
@@ -90,6 +94,14 @@ const RightSection = ({ onSubmissionSuccess }) => {
             {notification.show && (
                 <div className={`notification ${notification.isSuccess ? 'success' : 'error'}`}>
                     {notification.message}
+                </div>
+            )}
+            {showPopup && (
+                <div className="popup">
+                    <div className="popup-content">
+                        <div className="loader"></div>
+                        <p>Submitting your code, please wait...</p>
+                    </div>
                 </div>
             )}
         </div>

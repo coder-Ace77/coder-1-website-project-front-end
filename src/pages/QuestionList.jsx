@@ -3,20 +3,45 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../css/QuestionList.css';
 import NavBar from '../components/nav_bar';
+import TagSearchComponent from '../components/TagSearchComponent';
 
 const QuestionListPage = () => {
     const [questions, setQuestions] = useState([]);
+    const [tags, setTags] = useState([]);
+    const [filteredQuestions, setFilteredQuestions] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
         axios.get('http://localhost:5000/questionlist')
             .then(response => {
                 setQuestions(response.data);
+                setFilteredQuestions(response.data);
             })
             .catch(error => {
                 console.error('There was an error fetching the questions!', error);
             });
     }, []);
+
+    const handleTagChange = (selectedTags) => {
+        setTags(selectedTags);
+        filterQuestions(selectedTags); // Filter questions when tags change
+    };
+
+    const filterQuestions = (selectedTags) => {
+        if (selectedTags.length === 0) {
+            setFilteredQuestions(questions); // Show all questions if no tags selected
+        } else {
+            const filtered = questions.filter(question =>
+                selectedTags.every(tag => question.tags.includes(tag))
+            );
+            setFilteredQuestions(filtered);
+        }
+    };
+
+    const clearFilter = () => {
+        setTags([]);
+        setFilteredQuestions(questions); // Reset filtered questions to all questions
+    };
 
     const handleQuestionClick = (quesName) => {
         navigate(`/ques/${quesName}`);
@@ -27,25 +52,26 @@ const QuestionListPage = () => {
             <NavBar />
             <div className="question-list-page">
                 <div className="search-tags-section">
-                    <input type="text" placeholder="Search questions..." className="search-bar" />
+                    <TagSearchComponent selectedTags={tags} onTagChange={handleTagChange} />
+                    {tags.length > 0 && (
+                        <button className="clear-filter-btn" onClick={clearFilter}>Clear Filter</button>
+                    )}
                 </div>
                 <div className="horizontal-question-list">
-                    {questions.map((question, index) => (
-                        index%2 === 0 ?
+                    {filteredQuestions.map((question, index) => (
                         <div
                             key={index}
-                            className="question-item-even"
-                            onClick={() => handleQuestionClick(question)}
+                            className={index % 2 === 0 ? "question-item-even" : "question-item-odd"}
+                            onClick={() => handleQuestionClick(question.name)}
                         >
-                            {question}
-                        </div>: <div
-                            key={index}
-                            className="question-item-odd"
-                            onClick={() => handleQuestionClick(question)}
-                        >
-                            {question}
+                            {question.name}
                         </div>
                     ))}
+                    {filteredQuestions.length === 0 && (
+                        <div className="no-results">
+                            No questions found.
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

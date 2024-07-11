@@ -19,6 +19,7 @@
     "react-ace": "^10.1.0",
     "react-bootstrap": "^2.10.0",
     "react-chartjs-2": "^5.2.0",
+    "react-code-blocks": "^0.1.6",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "react-linechart": "^1.1.12",
@@ -48,8 +49,8 @@
       "not op_mini all"
     ],
     "development": [
-      "last 1 chrome version",
       "last 1 firefox version",
+      "last 1 chrome version",
       "last 1 safari version"
     ]
   }

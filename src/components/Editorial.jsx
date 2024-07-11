@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { CopyBlock , dracula } from 'react-code-blocks';
 import axios from 'axios';
 import './css/Editorial.css';
 
@@ -25,7 +26,11 @@ const Editorial = () => {
         <div className="editorial-page">
             <h2>Editorial</h2>
             <div className="editorial-content">
-                <pre>{editorial}</pre>
+                    <CopyBlock
+                        text={editorial}
+                        language={'cpp'}
+                        showLineNumbers={true}
+                        theme={dracula}/>
             </div>
         </div>
     );

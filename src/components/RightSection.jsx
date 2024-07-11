@@ -1,16 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect , useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import Editor from '@monaco-editor/react';
+import Editor ,{ loader } from '@monaco-editor/react';
 import axios from 'axios';
 import CustomButton from './CustomButton';
 import './css/RightSection.css';
+import draculaTheme from '../theme/dracula.js';
 
 const RightSection = ({ onSubmissionResponse }) => {
     const { quesName } = useParams();
     const [code, setCode] = useState('// Write your code here');
-    const [language, setLanguage] = useState('cpp'); // Default language
+    const [language, setLanguage] = useState('cpp');
     const [notification, setNotification] = useState({ show: false, message: '', isSuccess: false });
-    const [showPopup, setShowPopup] = useState(false); // State for showing popup
+    const [showPopup, setShowPopup] = useState(false);
+    const [initialized, setInitialized] = useState(false);
+    const firstRenderRef = useRef(true);
+
+
+    useEffect(() => {
+        if (firstRenderRef.current) {
+            loader.init().then(monaco => {
+                monaco.editor.defineTheme('dracula', draculaTheme);
+                monaco.editor.setTheme('dracula');
+                setInitialized(true);
+                firstRenderRef.current = false;
+            }).catch(err => {
+                console.error("Error loading Monaco editor or applying theme:", err);
+            });
+        }
+    }, []);
 
     useEffect(() => {
         const savedCode = localStorage.getItem(`${quesName}-${language}-code`);
@@ -35,7 +52,7 @@ const RightSection = ({ onSubmissionResponse }) => {
     };
 
     const handleSubmit = () => {
-        setShowPopup(true); // Show the popup when submission starts
+        setShowPopup(true);
 
         const submissionData = {
             code: code,
@@ -48,16 +65,16 @@ const RightSection = ({ onSubmissionResponse }) => {
                 const { status, message } = response.data;
                 console.log('Submission successful:', response.data);
                 setNotification({ show: true, message, isSuccess: status });
-                onSubmissionResponse(status); // Notify parent about submission status
-                setShowPopup(false); // Hide the popup after response
+                onSubmissionResponse(status); 
+                setShowPopup(false); 
                 setTimeout(() => {
                     setNotification({ show: false, message: '', isSuccess: false });
                 }, 5000);
             })
             .catch(error => {
                 setNotification({ show: true, message: 'Server error, please try again later.', isSuccess: false });
-                onSubmissionResponse(false); // Notify parent about submission failure
-                setShowPopup(false); // Hide the popup after error
+                onSubmissionResponse(false); 
+                setShowPopup(false); 
                 setTimeout(() => {
                     setNotification({ show: false, message: '', isSuccess: false });
                 }, 5000);
@@ -85,10 +102,18 @@ const RightSection = ({ onSubmissionResponse }) => {
             </div>
             <div className="monaco-editor">
                 <Editor
-                    language={language === 'c' ? 'cpp' : language} // Adjusting for C to default to C++
+                    language={language === 'c' ? 'cpp' : language} 
                     theme="vs-dark"
                     value={code}
                     onChange={handleEditorChange}
+                    options={{
+                        fontSize: 18,
+                        minimap: { enabled: false },
+                        wordWrap: 'on',
+                        scrollBeyondLastLine: false,
+                        automaticLayout: true,
+                        theme: 'dracula'
+                    }}
                 />
             </div>
             {notification.show && (

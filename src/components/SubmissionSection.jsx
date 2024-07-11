@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './css/SubmissionSection.css';
 import { useParams } from 'react-router-dom';
+import { CopyBlock , dracula } from 'react-code-blocks';
 
 const SubmissionSection = ({ques}) => {
     const [submissions, setSubmissions] = useState([]);
@@ -44,11 +45,11 @@ const SubmissionSection = ({ques}) => {
                         </button>
                     </div>
                     <div className={`submission-code ${expandedId === index ? 'expanded' : 'collapsed'}`}>
-                        <pre>
-                            <code>
-                                {expandedId === index ? submission.code : submission.code.split('\n').slice(0, 3).join('\n') + '...'}
-                            </code>
-                        </pre>
+                            <CopyBlock
+                                text={submission.code}
+                                language={'cpp'}
+                                showLineNumbers={true}
+                                theme={dracula}/>
                     </div>
                 </div>
             ))}

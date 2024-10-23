@@ -40,6 +40,11 @@ const ProfilePage = () => {
             }
         };
 
+        
+        fetchUserData();
+    }, []);
+
+    useEffect(()=>{
         const fetchSubmissions = async () => {
             try {
                 const response = await request.get('/submissions', { withCredentials: true });
@@ -56,9 +61,8 @@ const ProfilePage = () => {
             }
         };
 
-        fetchUserData();
         fetchSubmissions();
-    }, []);
+    } , []);
 
     if (!userData) {
         return <div>Loading...</div>;

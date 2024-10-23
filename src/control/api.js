@@ -5,13 +5,17 @@ const request = axios.create({
   withCredentials: true,
 });
 
-// console.log(process.env.BACKEND_URL);
-
-// request.interceptors.request.use((config) => {
-//   const sessionId = document.cookie.match(/(?<=sessionId=)[^;]*/);
-//   return config;
-// }, (error) => {
-//   return Promise.reject(error);
-// });
+request.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("authtoken");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export default request;

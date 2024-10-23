@@ -23,10 +23,11 @@ const NavBar = () => {
 
     const handleLogout = () => {
         request.get('/logout',{withCredentials:true}).then(response => {
-                if (response.data.code === 200) {
-                    setIsLoggedIn(false);
-                    setUsername('');
-                }
+            localStorage.clear("authtoken");
+            if (response.data.code === 200) {
+                setIsLoggedIn(false);
+                setUsername('');
+            }
             }).catch(error => {
                 console.error('Error logging out:', error);
             });

@@ -14,7 +14,6 @@ const SubmissionView = () => {
         const fetchSubmission = async () => {
             try {
                 const response = await request.get(`/submission/view/${id}`, { withCredentials: true });
-                console.log(response.data);
                 if (response.data.status) {
                     setSubmission(response.data.submission);
                     setQuestion(response.data.submission.name);

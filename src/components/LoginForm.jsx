@@ -22,9 +22,6 @@ const LoginForm = () => {
 
         try {
             const response = await request.post('/login', loginData, { withCredentials: true });
-            console.log(response.data.code);
-            console.log(response.data.token);
-
             const token = response.data.token;
             localStorage.setItem("authtoken",token);
 

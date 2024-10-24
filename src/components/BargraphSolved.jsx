@@ -31,7 +31,6 @@ const TagBarGraph = () => {
         setLoading(false);
       })
       .catch(error => {
-        console.error('Error fetching tag data:', error);
         setLoading(false);
       });
   }, []);

@@ -26,16 +26,13 @@ const Code = () => {
         request.post('/runsample', testData, { withCredentials: true })
             .then(response => {
                 const results = response.data;
-                console.log(results);
                 
                 if (results.status === false){
-                    console.log("HITTING false notification!!!");
                     setNotification({ show: true, message: results.msg, isSuccess: false });
                     setTimeout(() => {
                         setNotification({ show: false, message: '', isSuccess: false });
                     }, 5000);
                 } else {
-                    console.log("SETTING");
                     setTestCaseResults(results);
                     setActiveSection('testcases');
                 }

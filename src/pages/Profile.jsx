@@ -32,8 +32,6 @@ const ProfilePage = () => {
                         y: contest.delta
                     }));
                     setData([{ color: "steelblue", points: ratingData }]);
-                } else {
-                    console.log('User is not logged in');
                 }
             } catch (error) {
                 console.error('Error fetching user data:', error);

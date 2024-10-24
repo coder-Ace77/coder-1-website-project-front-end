@@ -1,7 +1,6 @@
 import React, { useState, useEffect , useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import Editor ,{ loader } from '@monaco-editor/react';
-import axios from 'axios';
 import CustomButton from './CustomButton';
 import './css/RightSection.css';
 import draculaTheme from '../theme/dracula.js';
@@ -86,35 +85,6 @@ const RightSection = ({ onSubmissionResponse ,onRunTestCases,isRunningTests}) =>
 
     const handleRunTestCases = () => {
         onRunTestCases(code,language,quesName);
-        // setIsRunningTests(true);
-        // setShowPopup(true);
-
-        // const testData = {
-        //     code: code,
-        //     name: quesName,
-        //     lang: language
-        // };
-
-        // request.post('/runsample', testData, { withCredentials: true })
-        //     .then(response => {
-        //         const { status, results } = response.data;
-        //         setShowPopup(false);
-        //         setIsRunningTests(false);
-        //         onTestCaseSubmit(true, results); 
-        //     })
-        //     .catch(error => {
-        //         setShowPopup(false);
-        //         setIsRunningTests(false);
-        //         onTestCaseSubmit(false, null);
-        //         setNotification({
-        //             show: true,
-        //             message: 'Error running test cases. Please try again.',
-        //             isSuccess: false
-        //         });
-        //         setTimeout(() => {
-        //             setNotification({ show: false, message: '', isSuccess: false });
-        //         }, 5000);
-        //     });
     };
 
 

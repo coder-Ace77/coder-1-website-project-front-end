@@ -12,7 +12,6 @@ const SubmissionSection = forwardRef(({ ques }, ref) => {
 
     const fetchSubmissions = async () => {
         try {
-            console.log(ques);
             const response = await request.get(`/submissions/${ques}`, { withCredentials: true });
             if (response.data.status) {
                 setSubmissions(response.data.submissions.reverse());

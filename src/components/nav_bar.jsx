@@ -47,16 +47,16 @@ const NavBar = () => {
                     &#9776;
                 </div>
                 <div className={`links ${sidebarOpen ? 'open' : ''}`}>
-                    <a href="https://github.com/coder-Ace77?tab=repositories">GitHub</a>
-                    {!isLoggedIn && <a href="/sign">SignIn</a>}  {/* Hide when logged in */}
-                    <a href="/questionlist">Questions</a>
-                    <a href="/add_question">Add Question</a>
                     {isLoggedIn && (
                         <div className="user-info">
                             <a href="/profile" className="username">{username}</a>
                             <button onClick={handleLogout} className="logout-button">Logout</button>
                         </div>
                     )}
+                    <a href="https://github.com/coder-Ace77?tab=repositories">GitHub</a>
+                    <a href="/questionlist">Questions</a>
+                    <a href="/add_question">Add Question</a>
+                    {!isLoggedIn && <a href="/sign">SignIn</a>}  {/* Hide when logged in */}
                 </div>
             </div>
         </nav>

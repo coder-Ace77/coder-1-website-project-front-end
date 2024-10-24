@@ -26,7 +26,6 @@ const Code = () => {
         request.post('/runsample', testData, { withCredentials: true })
             .then(response => {
                 const results = response.data;
-                
                 if (results.status === false){
                     setNotification({ show: true, message: results.msg, isSuccess: false });
                     setTimeout(() => {
@@ -38,7 +37,6 @@ const Code = () => {
                 }
             })
             .catch(err => {
-                console.error("Error while running test cases:", err);
                 setNotification({ show: true, message: "Error while running test cases", isSuccess: false });
                 setTimeout(() => {
                     setNotification({ show: false, message: '', isSuccess: false });

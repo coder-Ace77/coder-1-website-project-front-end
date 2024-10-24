@@ -1,45 +1,134 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import '../css/Home.css'; 
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { FaCommentDots } from 'react-icons/fa';
+import request from "../control/api";
+import boy from '../img/boy.png';
 
-const HomePage = () => {
-    const navigate = useNavigate();
+const Home = () => {
+  const [isButtonEnabled, setIsButtonEnabled] = useState(false);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+  const [greetingMessage, setGreetingMessage] = useState('');
+  const [loadingFast, setLoadingFast] = useState(false);
+  const [showGreetingDialog, setShowGreetingDialog] = useState(false);
+  const navigate = useNavigate();
 
-    const handleGetStarted = () => {
-        navigate('/sign');
-    };
+  const handleGetStarted = () => {
+    navigate('/sign');
+  };
 
-    return (
-        <div className="home-page">
-            <section className="hero-section">
-                <div className="hero-content">
-                    <h1>Start Coding Today</h1>
-                    <p>Compete, Learn, and Grow</p>
-                    <button className="cta-button" onClick={handleGetStarted}>Get Started</button>
-                </div>
-                <div className="hero-animation">
-                </div>
-            </section>
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      try {
+        const response = await request.get('/'); 
+        if (response.status === 200){
+          if (!loadingFast) {
+            setLoadingFast(true);
+          }
+        }
+      } catch (error) {
+        console.error("API request failed");
+      }
+    }, 5000);
 
-            <section className="content-section">
-                <div className="paragraph-container right">
-                    <h2>Compete with top coders of the world</h2>
-                    <p>Dummy text for the first paragraph. This is a stylish introduction to the platform.Dummy text for the first paragraph. This is a stylish introduction to the platform.Dummy text for the first paragraph. This is a stylish introduction to the platform.</p>
-                </div>
-                <div className="paragraph-container left">
-                    <h2>Second Heading</h2>
-                    <p>Dummy text for the second paragraph. Explaining more benefits and features.Dummy text for the second paragraph. Explaining more benefits and features.Dummy text for the second paragraph. Explaining more benefits and features.Dummy text for the second paragraph. Explaining more benefits and features.</p>
-                </div>
-                <div className="paragraph-container right">
-                    <h2>Third Heading</h2>
-                    <p>Dummy text for the third paragraph. Final remarks and call to action.Dummy text for the second paragraph. Explaining more benefits and features.Dummy text for the second paragraph. Explaining more benefits and features.Dummy text for the second paragraph. Explaining more benefits and features.Dummy text for the second paragraph. Explaining more benefits and features.Dummy text for the second paragraph. Explaining more benefits and features.</p>
-                </div>
-            </section>
-            <footer className="footer">
-                <p>&copy; 2024 Your Platform Name. All rights reserved.</p>
-            </footer>
+    return () => clearInterval(interval);
+  }, [loadingFast]);
+
+  useEffect(() => {
+    const loadingInterval = setInterval(() => {
+      setLoadingProgress((prev) => (prev < 100 && !loadingFast ? prev + (100 / 30) : prev));
+    }, 1000);
+
+    if (loadingFast) {
+      const remainingTime = 2000; 
+      const initialProgress = loadingProgress;
+
+      const fastLoadingInterval = setInterval(() => {
+        setLoadingProgress((prev) => {
+          const increment = (100 - initialProgress) / (remainingTime / 100);
+          return prev < 100 ? prev + increment : 100; 
+        });
+      }, 100);
+
+      setTimeout(() => {
+        clearInterval(fastLoadingInterval);
+        setLoadingFast(false);
+        setIsButtonEnabled(true);
+      }, remainingTime);
+    }
+
+    return () => clearInterval(loadingInterval);
+  }, [loadingFast, loadingProgress]);
+
+  useEffect(() => {
+    const typingMessage = "Hi! Server start may take up to 50s.";
+    let index = 0;
+
+    const typingInterval = setInterval(() => {
+      setGreetingMessage((prev) => prev + typingMessage[index]);
+      index += 1;
+
+      if (index === typingMessage.length-1){
+        clearInterval(typingInterval);
+      }
+    }, 100);
+
+    return () => clearInterval(typingInterval);
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowGreetingDialog(true);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <div className="home-container">
+      <div className="cube-container">
+        <div className="cube">
+          <div className="cube-face front"></div>
+          <div className="cube-face back"></div>
+          <div className="cube-face left"></div>
+          <div className="cube-face right"></div>
+          <div className="cube-face top"></div>
+          <div className="cube-face bottom"></div>
         </div>
-    );
-}
+      </div>
 
-export default HomePage;
+      <div className="overlay-content">
+        <h1>Welcome to the coding master</h1>
+        <button 
+          className="explore-btn" 
+          onClick={handleGetStarted} 
+          disabled={!isButtonEnabled}
+        >
+          {isButtonEnabled ? 'Get started' : 'Loading...'}
+        </button>
+      </div>
+
+      <div className="loading-bar-container">
+        <div className="loading-bar" style={{ width: `${loadingProgress}%` }}></div>
+      </div>
+      <div className="img-boy">
+        <img src={boy} alt="BOY" />
+      </div>
+
+      {showGreetingDialog && (
+        <div className="gretting-container">
+          <div className="greeting-dialog">
+            <div className="greeting-icon">
+              <FaCommentDots size={40} />
+            </div>
+            <div className="greeting-message">{greetingMessage}</div>
+          </div>
+
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Home;

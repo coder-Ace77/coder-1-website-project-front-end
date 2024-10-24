@@ -1,12 +1,12 @@
-import React, { useState, useEffect , useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import Editor ,{ loader } from '@monaco-editor/react';
+import Editor, { loader } from '@monaco-editor/react';
 import CustomButton from './CustomButton';
 import './css/RightSection.css';
 import draculaTheme from '../theme/dracula.js';
 import request from '../control/api';
 
-const RightSection = ({ onSubmissionResponse ,onRunTestCases,isRunningTests}) => {
+const RightSection = ({ onSubmissionResponse, onRunTestCases, isRunningTests }) => {
     const { quesName } = useParams();
     const [code, setCode] = useState('// Write your code here');
     const [language, setLanguage] = useState('cpp');
@@ -52,7 +52,6 @@ const RightSection = ({ onSubmissionResponse ,onRunTestCases,isRunningTests}) =>
 
     const handleSubmit = () => {
         setShowPopup(true);
-
         const submissionData = {
             code: code,
             name: quesName,
@@ -61,22 +60,22 @@ const RightSection = ({ onSubmissionResponse ,onRunTestCases,isRunningTests}) =>
 
         request.post('/submit', submissionData, { withCredentials: true })
             .then(response => {
-                const { status, message} = response.data;
-                if(message==="Compilation error"){
-                    setNotification({show:true ,message , isSuccess:false});
-                }else{
+                const { status, message } = response.data;
+                if (message === "Compilation error") {
+                    setNotification({ show: true, message, isSuccess: false });
+                } else {
                     setNotification({ show: true, message, isSuccess: status });
                 }
-                onSubmissionResponse(status); 
-                setShowPopup(false); 
+                onSubmissionResponse(status);
+                setShowPopup(false);
                 setTimeout(() => {
-                    setNotification({ show: false, message: '', isSuccess: false});
+                    setNotification({ show: false, message: '', isSuccess: false });
                 }, 5000);
             })
             .catch(error => {
                 setNotification({ show: true, message: 'Server error, please try again later.', isSuccess: false });
-                onSubmissionResponse(false); 
-                setShowPopup(false); 
+                onSubmissionResponse(false);
+                setShowPopup(false);
                 setTimeout(() => {
                     setNotification({ show: false, message: '', isSuccess: false });
                 }, 5000);
@@ -84,12 +83,18 @@ const RightSection = ({ onSubmissionResponse ,onRunTestCases,isRunningTests}) =>
     };
 
     const handleRunTestCases = () => {
-        onRunTestCases(code,language,quesName);
+        onRunTestCases(code, language, quesName);
     };
 
+    const isAuthTokenPresent = !!localStorage.getItem('authToken');
 
     return (
         <div className="right-section">
+            {!isAuthTokenPresent && (
+                <div className="locked-overlay">
+                    <p>Please log in to access the editor.</p>
+                </div>
+            )}
             <div className="section-header">
                 <select value={language} onChange={handleLanguageChange} className="language-select">
                     <option value="cpp">C++</option>
@@ -99,14 +104,14 @@ const RightSection = ({ onSubmissionResponse ,onRunTestCases,isRunningTests}) =>
                     <CustomButton
                         color="grey"
                         onClick={handleRunTestCases}
-                        disabled={isRunningTests}
+                        disabled={isRunningTests || !isAuthTokenPresent}
                     >
                         {isRunningTests ? 'Running...' : 'Run Test Cases'}
                     </CustomButton>
                     <CustomButton
                         color="green"
                         onClick={handleSubmit}
-                        disabled={isRunningTests}
+                        disabled={isRunningTests || !isAuthTokenPresent}
                     >
                         Submit
                     </CustomButton>
@@ -114,7 +119,7 @@ const RightSection = ({ onSubmissionResponse ,onRunTestCases,isRunningTests}) =>
             </div>
             <div className="monaco-editor">
                 <Editor
-                    language={language} 
+                    language={language}
                     theme="vs-dark"
                     value={code}
                     onChange={handleEditorChange}

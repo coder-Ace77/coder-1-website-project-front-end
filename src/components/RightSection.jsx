@@ -7,8 +7,7 @@ import './css/RightSection.css';
 import draculaTheme from '../theme/dracula.js';
 import request from '../control/api';
 
-
-const RightSection = ({ onSubmissionResponse }) => {
+const RightSection = ({ onSubmissionResponse ,onRunTestCases,isRunningTests}) => {
     const { quesName } = useParams();
     const [code, setCode] = useState('// Write your code here');
     const [language, setLanguage] = useState('cpp');
@@ -86,6 +85,40 @@ const RightSection = ({ onSubmissionResponse }) => {
             });
     };
 
+    const handleRunTestCases = () => {
+        onRunTestCases(code,language,quesName);
+        // setIsRunningTests(true);
+        // setShowPopup(true);
+
+        // const testData = {
+        //     code: code,
+        //     name: quesName,
+        //     lang: language
+        // };
+
+        // request.post('/runsample', testData, { withCredentials: true })
+        //     .then(response => {
+        //         const { status, results } = response.data;
+        //         setShowPopup(false);
+        //         setIsRunningTests(false);
+        //         onTestCaseSubmit(true, results); 
+        //     })
+        //     .catch(error => {
+        //         setShowPopup(false);
+        //         setIsRunningTests(false);
+        //         onTestCaseSubmit(false, null);
+        //         setNotification({
+        //             show: true,
+        //             message: 'Error running test cases. Please try again.',
+        //             isSuccess: false
+        //         });
+        //         setTimeout(() => {
+        //             setNotification({ show: false, message: '', isSuccess: false });
+        //         }, 5000);
+        //     });
+    };
+
+
     return (
         <div className="right-section">
             <div className="section-header">
@@ -94,10 +127,18 @@ const RightSection = ({ onSubmissionResponse }) => {
                     <option value="python">Python</option>
                 </select>
                 <div>
-                    <CustomButton color="grey">
-                        Run Test Cases
+                    <CustomButton
+                        color="grey"
+                        onClick={handleRunTestCases}
+                        disabled={isRunningTests}
+                    >
+                        {isRunningTests ? 'Running...' : 'Run Test Cases'}
                     </CustomButton>
-                    <CustomButton color="green" onClick={handleSubmit}>
+                    <CustomButton
+                        color="green"
+                        onClick={handleSubmit}
+                        disabled={isRunningTests}
+                    >
                         Submit
                     </CustomButton>
                 </div>

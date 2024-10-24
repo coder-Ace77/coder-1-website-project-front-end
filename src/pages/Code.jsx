@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import NavBar from '../components/nav_bar';
 import LeftSection from '../components/LeftSection';
 import RightSection from '../components/RightSection';
-import SubmissionSection from '../components/SubmissionSection';
 import '../css/Code.css';
 import request from '../control/api';
 
@@ -27,9 +26,28 @@ const Code = () => {
         request.post('/runsample', testData, { withCredentials: true })
             .then(response => {
                 const results = response.data;
-                setTestCaseResults(results);
-                setActiveSection('testcases');
-            }).finally(() => {
+                console.log(results);
+                
+                if (results.status === false){
+                    console.log("HITTING false notification!!!");
+                    setNotification({ show: true, message: results.msg, isSuccess: false });
+                    setTimeout(() => {
+                        setNotification({ show: false, message: '', isSuccess: false });
+                    }, 5000);
+                } else {
+                    console.log("SETTING");
+                    setTestCaseResults(results);
+                    setActiveSection('testcases');
+                }
+            })
+            .catch(err => {
+                console.error("Error while running test cases:", err);
+                setNotification({ show: true, message: "Error while running test cases", isSuccess: false });
+                setTimeout(() => {
+                    setNotification({ show: false, message: '', isSuccess: false });
+                }, 5000);
+            })
+            .finally(() => {
                 setIsRunningTests(false);
             });
     };
@@ -46,6 +64,11 @@ const Code = () => {
         <div className="home">
             <NavBar />
             <div className="main-container">
+                {notification.show && (
+                    <div className={`notification ${notification.isSuccess ? 'success' : 'error'}`}>
+                        {notification.message}
+                    </div>
+                )}
                 <LeftSection
                     activeSection={activeSection}
                     onSectionChange={handleSectionChange}
@@ -63,5 +86,4 @@ const Code = () => {
 };
 
 export default Code;
-
 

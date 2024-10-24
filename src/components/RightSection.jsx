@@ -16,7 +16,6 @@ const RightSection = ({ onSubmissionResponse ,onRunTestCases,isRunningTests}) =>
     const [initialized, setInitialized] = useState(false);
     const firstRenderRef = useRef(true);
 
-
     useEffect(() => {
         if (firstRenderRef.current) {
             loader.init().then(monaco => {

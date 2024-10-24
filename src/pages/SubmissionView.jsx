@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import request from '../control/api'; // Using your custom Axios instance
+import request from '../control/api';
 import { CopyBlock, dracula } from 'react-code-blocks';
 import '../css/SubmissionView.css';
 import NavBar from '../components/nav_bar';

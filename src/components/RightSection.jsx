@@ -17,10 +17,11 @@ const RightSection = ({ onSubmissionResponse, onRunTestCases, isRunningTests }) 
     const firstRenderRef = useRef(true);
 
     useEffect(() => {
-        // Check if user is logged in by hitting /checklogin API
         request.get('/checklogin', { withCredentials: true })
             .then(response => {
-                if (response.data.loggedIn) {
+                console.log(response.data);
+                if (response.data.isLoggedIn){
+                    console.log("SETTING");
                     setIsLoggedIn(true);
                 } else {
                     setIsLoggedIn(false);

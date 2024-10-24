@@ -126,6 +126,7 @@ body, html {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-weight: bold;
 }
 
 .explore-btn:disabled {
@@ -138,11 +139,15 @@ body, html {
 }
 
 .text-highlight-green{
-  color: greenyellow;
+  color: rgb(14, 215, 67);
   padding-inline-start: 10px;
+  font-weight: bold;
   
 }
 
+.text-highlight-black{
+  color: rgb(251, 251, 248);
+}
 
 .text-highlight-yellow{
   color: yellow;
@@ -161,7 +166,8 @@ body, html {
   align-items: center;
   transition: opacity 0.5s;
   opacity: 1;
-  color:black
+  color:rgb(5, 86, 91);
+  font-weight: 700;
 }
 
 .greeting-icon {

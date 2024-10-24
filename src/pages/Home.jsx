@@ -99,7 +99,7 @@ const Home = () => {
       </div>
 
       <div className="overlay-content">
-        <h1>Welcome to the coding master</h1>
+        <h1><span className='text-highlight-yellow'>#Welcome</span> to the <span className='text-highlight-green'>coding</span> master</h1>
         <button 
           className="explore-btn" 
           onClick={handleGetStarted} 

@@ -37,7 +37,7 @@ const Home = () => {
 
   useEffect(() => {
     const loadingInterval = setInterval(() => {
-      setLoadingProgress((prev) => (prev < 100 && !loadingFast ? prev + (100 / 30) : prev));
+      setLoadingProgress((prev) => (prev < 100 && !loadingFast ? prev + (100 / 40) : prev));
     }, 1000);
 
     if (loadingFast) {

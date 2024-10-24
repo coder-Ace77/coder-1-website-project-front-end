@@ -13,7 +13,24 @@ const RightSection = ({ onSubmissionResponse, onRunTestCases, isRunningTests }) 
     const [notification, setNotification] = useState({ show: false, message: '', isSuccess: false });
     const [showPopup, setShowPopup] = useState(false);
     const [initialized, setInitialized] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const firstRenderRef = useRef(true);
+
+    useEffect(() => {
+        // Check if user is logged in by hitting /checklogin API
+        request.get('/checklogin', { withCredentials: true })
+            .then(response => {
+                if (response.data.loggedIn) {
+                    setIsLoggedIn(true);
+                } else {
+                    setIsLoggedIn(false);
+                }
+            })
+            .catch(error => {
+                console.error("Error checking login status:", error);
+                setIsLoggedIn(false);
+            });
+    }, []);
 
     useEffect(() => {
         if (firstRenderRef.current) {
@@ -86,53 +103,55 @@ const RightSection = ({ onSubmissionResponse, onRunTestCases, isRunningTests }) 
         onRunTestCases(code, language, quesName);
     };
 
-    const isAuthTokenPresent = !!localStorage.getItem('authToken');
-
     return (
         <div className="right-section">
-            {!isAuthTokenPresent && (
+            {!isLoggedIn && (
                 <div className="locked-overlay">
                     <p>Please log in to access the editor.</p>
                 </div>
             )}
-            <div className="section-header">
-                <select value={language} onChange={handleLanguageChange} className="language-select">
-                    <option value="cpp">C++</option>
-                    <option value="python">Python</option>
-                </select>
-                <div>
-                    <CustomButton
-                        color="grey"
-                        onClick={handleRunTestCases}
-                        disabled={isRunningTests || !isAuthTokenPresent}
-                    >
-                        {isRunningTests ? 'Running...' : 'Run Test Cases'}
-                    </CustomButton>
-                    <CustomButton
-                        color="green"
-                        onClick={handleSubmit}
-                        disabled={isRunningTests || !isAuthTokenPresent}
-                    >
-                        Submit
-                    </CustomButton>
-                </div>
-            </div>
-            <div className="monaco-editor">
-                <Editor
-                    language={language}
-                    theme="vs-dark"
-                    value={code}
-                    onChange={handleEditorChange}
-                    options={{
-                        fontSize: 18,
-                        minimap: { enabled: false },
-                        wordWrap: 'on',
-                        scrollBeyondLastLine: false,
-                        automaticLayout: true,
-                        theme: 'dracula'
-                    }}
-                />
-            </div>
+            {isLoggedIn && (
+                <>
+                    <div className="section-header">
+                        <select value={language} onChange={handleLanguageChange} className="language-select">
+                            <option value="cpp">C++</option>
+                            <option value="python">Python</option>
+                        </select>
+                        <div>
+                            <CustomButton
+                                color="grey"
+                                onClick={handleRunTestCases}
+                                disabled={isRunningTests}
+                            >
+                                {isRunningTests ? 'Running...' : 'Run Test Cases'}
+                            </CustomButton>
+                            <CustomButton
+                                color="green"
+                                onClick={handleSubmit}
+                                disabled={isRunningTests}
+                            >
+                                Submit
+                            </CustomButton>
+                        </div>
+                    </div>
+                    <div className="monaco-editor">
+                        <Editor
+                            language={language}
+                            theme="vs-dark"
+                            value={code}
+                            onChange={handleEditorChange}
+                            options={{
+                                fontSize: 18,
+                                minimap: { enabled: false },
+                                wordWrap: 'on',
+                                scrollBeyondLastLine: false,
+                                automaticLayout: true,
+                                theme: 'dracula'
+                            }}
+                        />
+                    </div>
+                </>
+            )}
             {notification.show && (
                 <div className={`notification ${notification.isSuccess ? 'success' : 'error'}`}>
                     {notification.message}

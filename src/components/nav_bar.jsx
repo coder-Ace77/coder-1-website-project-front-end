@@ -53,7 +53,7 @@ const NavBar = () => {
                             <button onClick={handleLogout} className="logout-button">Logout</button>
                         </div>
                     )}
-                    <a href="https://github.com/coder-Ace77?tab=repositories">GitHub</a>
+                    <a href="https://github.com/coder-Ace77/Coder-1-website-project">GitHub</a>
                     <a href="/questionlist">Questions</a>
                     <a href="/add_question">Add Question</a>
                     {!isLoggedIn && <a href="/sign">SignIn</a>}  {/* Hide when logged in */}

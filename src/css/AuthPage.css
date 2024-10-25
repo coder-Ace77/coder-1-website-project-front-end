@@ -68,3 +68,38 @@
         align-items: flex-start;
     }
 }
+
+.typing-animation {
+    font-family: 'Courier', monospace;
+    white-space: pre;
+    border-right: 2px solid;
+    width: fit-content;
+    animation: blink-caret 0.75s step-end infinite;
+}
+
+@keyframes blink-caret {
+    from { border-color: transparent; }
+    to { border-color: black; }
+}
+
+.instruction-box {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #206f4d;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    max-width: auto;
+    z-index: 1000;
+    position: fixed;
+}
+
+.bottom-left {
+    bottom: 20px;
+    left: 20px;
+}
+
+.top-center {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}

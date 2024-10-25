@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import './css/AuthForm.css';
 import { useNavigate } from 'react-router-dom';
 import request from '../control/api';
@@ -47,7 +46,7 @@ const LoginForm = () => {
     return (
         <div>
             <form className="auth-form" onSubmit={handleSubmit}>
-                <input type="text" name="username" placeholder="Username or Email" required />
+                <input type="text" name="username" placeholder="Username" required />
                 <input type="password" name="password" placeholder="Password" required />
                 <button type="submit" className="auth-button">Login</button>
             </form>

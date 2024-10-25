@@ -60,3 +60,24 @@
 .popup-message.error {
     background-color: red;
 }
+
+.typing-animation {
+    font-family: 'Courier', monospace;
+    white-space: pre;
+    border-right: 2px solid;
+    width: fit-content;
+    animation: blink-caret 0.75s step-end infinite;
+}
+
+@keyframes blink-caret {
+    from { border-color: transparent; }
+    to { border-color: black; }
+}
+
+.instruction-box {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    font-size: 16px;
+}

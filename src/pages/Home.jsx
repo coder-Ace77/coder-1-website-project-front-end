@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../css/Home.css'; 
+import '../css/Home.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaCommentDots } from 'react-icons/fa';
@@ -21,11 +21,9 @@ const Home = () => {
   useEffect(() => {
     const interval = setInterval(async () => {
       try {
-        const response = await request.get('/'); 
-        if (response.status === 200){
-          if (!loadingFast) {
-            setLoadingFast(true);
-          }
+        const response = await request.get('/');
+        if (response.status === 200) {
+          setLoadingFast(true);
         }
       } catch (error) {
         console.error("API request failed");
@@ -33,32 +31,31 @@ const Home = () => {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [loadingFast]);
+  }, []);
 
   useEffect(() => {
-    const loadingInterval = setInterval(() => {
-      setLoadingProgress((prev) => (prev < 100 && !loadingFast ? prev + (100 / 80) : prev));
-    }, 1000);
+    if (!loadingFast) {
+      const loadingInterval = setInterval(() => {
+        setLoadingProgress((prev) => (prev < 90 ? prev + 1 : prev));
+      }, 1000);
 
-    if (loadingFast) {
-      const remainingTime = 2000; 
+      return () => clearInterval(loadingInterval);
+    } else {
+      const fastLoadingDuration = 1000; // Decreased from 2000 to 1000 milliseconds
       const initialProgress = loadingProgress;
 
       const fastLoadingInterval = setInterval(() => {
         setLoadingProgress((prev) => {
-          const increment = (100 - initialProgress) / (remainingTime / 100);
-          return prev < 100 ? prev + increment : 100; 
+          const increment = (100 - initialProgress) / (fastLoadingDuration / 100);
+          return prev < 100 ? prev + increment : 100;
         });
       }, 100);
 
       setTimeout(() => {
         clearInterval(fastLoadingInterval);
-        setLoadingFast(false);
         setIsButtonEnabled(true);
-      }, remainingTime);
+      }, fastLoadingDuration);
     }
-
-    return () => clearInterval(loadingInterval);
   }, [loadingFast, loadingProgress]);
 
   useEffect(() => {
@@ -69,7 +66,7 @@ const Home = () => {
       setGreetingMessage((prev) => prev + typingMessage[index]);
       index += 1;
 
-      if (index === typingMessage.length-1){
+      if (index === typingMessage.length - 1) {
         clearInterval(typingInterval);
       }
     }, 100);
@@ -99,10 +96,13 @@ const Home = () => {
       </div>
 
       <div className="overlay-content">
-        <h1><span className='text-highlight-yellow'>#Welcome</span> to the <span className='text-highlight-green'>coding</span> master</h1>
-        <button 
-          className="explore-btn" 
-          onClick={handleGetStarted} 
+        <h1>
+          <span className="text-highlight-yellow">#Welcome</span> to the{' '}
+          <span className="text-highlight-green">coding</span> master
+        </h1>
+        <button
+          className="explore-btn"
+          onClick={handleGetStarted}
           disabled={!isButtonEnabled}
         >
           {isButtonEnabled ? 'Get started' : 'Loading...'}
@@ -117,14 +117,13 @@ const Home = () => {
       </div>
 
       {showGreetingDialog && (
-        <div className="gretting-container">
+        <div className="greeting-container">
           <div className="greeting-dialog">
             <div className="greeting-icon">
               <FaCommentDots size={40} />
             </div>
             <div className="greeting-message">{greetingMessage}</div>
           </div>
-
         </div>
       )}
     </div>

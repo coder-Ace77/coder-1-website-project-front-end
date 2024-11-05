@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import request from '../control/api'; 
+import request from '../control/api';
 import '../css/Profile.css';
 import CustomList from '../components/CustomList';
 import NavBar from '../components/nav_bar';
 import ProfilePicture from '../components/ProfilePicture';
 import { Link } from 'react-router-dom';
 import TagBarGraph from '../components/BargraphSolved';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const ProfilePage = () => {
     const [userData, setUserData] = useState(null);
@@ -38,11 +40,10 @@ const ProfilePage = () => {
             }
         };
 
-        
         fetchUserData();
     }, []);
 
-    useEffect(()=>{
+    useEffect(() => {
         const fetchSubmissions = async () => {
             try {
                 const response = await request.get('/submissions', { withCredentials: true });
@@ -60,10 +61,54 @@ const ProfilePage = () => {
         };
 
         fetchSubmissions();
-    } , []);
+    }, []);
 
     if (!userData) {
-        return <div>Loading...</div>;
+        return (
+            <div>
+                <NavBar />
+                <div className="profile-page">
+                    <div className="left-sidebar expanded">
+                        <h2><Skeleton width={150} /></h2>
+                        <ul className="custom-list">
+                            {Array(5).fill().map((_, index) => (
+                                <li key={index} className={index % 2 === 0 ? 'even' : 'odd'}>
+                                    <Skeleton width="80%" />
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    <div className="left-main">
+                        <div className="personal-details">
+                            <div className="details">
+                                <h2><Skeleton width={200} /></h2>
+                                {Array(6).fill().map((_, index) => (
+                                    <div className="detail-item" key={index}>
+                                        <div className="detail-label"><Skeleton width={100} /></div>
+                                        <div className="detail-value"><Skeleton width={150} /></div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="profile-picture-container">
+                                <Skeleton circle={true} height={100} width={100} />
+                            </div>
+                        </div>
+
+                        <div className="rating-graph">
+                            <Skeleton height={200} />
+                        </div>
+
+                        <div className="solved-questions">
+                            <h2><Skeleton width={200} /></h2>
+                            {Array(5).fill().map((_, index) => (
+                                <Skeleton key={index} height={20} width="90%" />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     return (

@@ -11,7 +11,6 @@ const draculaTheme = {
       { token: 'constant', foreground: 'ffb86c' },
       { token: 'type', foreground: '8be9fd' },
       { token: 'function', foreground: '50fa7b' },
-      // Add more token rules as needed
     ],
     colors: {
       'editor.foreground': '#f8f8f2',
@@ -20,7 +19,6 @@ const draculaTheme = {
       'editor.lineHighlightBackground': '#44475a',
       'editorCursor.foreground': '#f8f8f0',
       'editorWhitespace.foreground': '#3b3a32',
-      // Add more color configurations as needed
     }
   };
   

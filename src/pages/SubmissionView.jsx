@@ -35,10 +35,15 @@ const SubmissionView = () => {
             <NavBar />
             <div className="submission-details">
                 <h1 className="question-title">{question}</h1>
-                <div className={`submission-status`}>
-                    {submission.status}
+                <div className="submission-info">
+                    <div className="submission-user">Submitted by: {submission.user}</div>
+                    <div className={`submission-status ${submission.status === 'Accepted' ? 'status-accepted' : 'status-rejected'}`}>
+                        Status: {submission.status}
+                    </div>
+                    <div className="submission-verdict">Verdict: {submission.message}</div>
+                    <div className="submission-time">Time Taken: {submission.time_taken || '0ms'}</div>
                 </div>
-                <CopyBlock text={submission.code} language='cpp' theme={dracula} showLineNumbers={true}/>
+                <CopyBlock text={submission.code} language='cpp' theme={dracula} showLineNumbers={true} />
             </div>
         </div>
     );

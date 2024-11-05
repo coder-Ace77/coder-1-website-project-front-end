@@ -2,7 +2,6 @@
 
 .submission-card {
     background: #4f4e4e;
-    color: #12b836;
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 25px;
@@ -30,7 +29,7 @@
 }
 
 .submission-header button {
-    background-color: #0b9a6d;
+    background-color: #11415a;
 }
 
 .submission-header button:hover {
@@ -97,4 +96,12 @@
     cursor: pointer;
     float: right;
     margin-top: -10px;
+}
+
+.submission-card.accepted {
+    background-color: rgb(9, 165, 9);
+}
+
+.submission-card.rejected {
+    background-color: rgb(197, 18, 18);
 }

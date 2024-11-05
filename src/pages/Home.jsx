@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../css/Home.css';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { FaCommentDots } from 'react-icons/fa';
 import request from "../control/api";
 import boy from '../img/boy.png';
@@ -10,7 +9,6 @@ const Home = () => {
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [greetingMessage, setGreetingMessage] = useState('');
-  const [loadingFast, setLoadingFast] = useState(false);
   const [showGreetingDialog, setShowGreetingDialog] = useState(false);
   const navigate = useNavigate();
 
@@ -19,67 +17,44 @@ const Home = () => {
   };
 
   useEffect(() => {
-    const interval = setInterval(async () => {
+    let loadingInterval;
+    let apiInterval;
+    let greetingTimeout;
+
+    const increaseLoadingProgress = () => {
+      loadingInterval = setInterval(() => {
+        setLoadingProgress((prev) => (prev < 90 ? prev + 1 : prev));
+      }, 1000);
+    };
+
+    const apiCall = async () => {
       try {
         const response = await request.get('/');
         if (response.status === 200) {
-          setLoadingFast(true);
+          clearInterval(apiInterval);
+          clearInterval(loadingInterval);
+          setLoadingProgress(100);
+          setIsButtonEnabled(true);
+          clearTimeout(greetingTimeout);
         }
       } catch (error) {
-        console.error("API request failed");
+        console.error("API request failed, retrying...");
       }
-    }, 5000);
+    };
 
-    return () => clearInterval(interval);
-  }, []);
+    increaseLoadingProgress();
+    apiInterval = setInterval(apiCall, 1000);
 
-  useEffect(() => {
-    if (!loadingFast) {
-      const loadingInterval = setInterval(() => {
-        setLoadingProgress((prev) => (prev < 90 ? prev + 1 : prev));
-      }, 1000);
-
-      return () => clearInterval(loadingInterval);
-    } else {
-      const fastLoadingDuration = 1000; // Decreased from 2000 to 1000 milliseconds
-      const initialProgress = loadingProgress;
-
-      const fastLoadingInterval = setInterval(() => {
-        setLoadingProgress((prev) => {
-          const increment = (100 - initialProgress) / (fastLoadingDuration / 100);
-          return prev < 100 ? prev + increment : 100;
-        });
-      }, 100);
-
-      setTimeout(() => {
-        clearInterval(fastLoadingInterval);
-        setIsButtonEnabled(true);
-      }, fastLoadingDuration);
-    }
-  }, [loadingFast, loadingProgress]);
-
-  useEffect(() => {
-    const typingMessage = "Hi! Server start may take up to 50s.";
-    let index = 0;
-
-    const typingInterval = setInterval(() => {
-      setGreetingMessage((prev) => prev + typingMessage[index]);
-      index += 1;
-
-      if (index === typingMessage.length - 1) {
-        clearInterval(typingInterval);
-      }
-    }, 100);
-
-    return () => clearInterval(typingInterval);
-  }, []);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
+    greetingTimeout = setTimeout(() => {
+      setGreetingMessage("Hi! Server start may take up to 50s.");
       setShowGreetingDialog(true);
-    }, 2000);
+    }, 3000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearInterval(loadingInterval);
+      clearInterval(apiInterval);
+      clearTimeout(greetingTimeout);
+    };
   }, []);
 
   return (

@@ -81,7 +81,11 @@ const RightSection = ({ onSubmissionResponse, onRunTestCases, isRunningTests }) 
                 const { status, message } = response.data;
                 if (message === "Compilation error") {
                     setNotification({ show: true, message, isSuccess: false });
-                } else {
+                }else if(message==="TLE"){
+                    setNotification({ show: true, message, isSuccess: false });
+                }else if(message==="Wrong ans"){
+                    setNotification({ show: true, message, isSuccess: false });
+                }else {
                     setNotification({ show: true, message, isSuccess: status });
                 }
                 onSubmissionResponse(status);

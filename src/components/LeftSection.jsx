@@ -10,7 +10,7 @@ import TestCases from './Testcases';
 const LeftSection = ({ activeSection, onSectionChange, testCaseResults }) => {
     const { quesName } = useParams();
 
-    return (
+    return(
         <div className="left-section">
             <div className="toggle-buttons">
                 <ToggleButton

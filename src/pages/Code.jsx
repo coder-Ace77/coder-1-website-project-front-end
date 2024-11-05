@@ -14,14 +14,15 @@ const Code = () => {
     const [notification, setNotification] = useState({ show: false, message: '', isSuccess: false });
     const [isLoading, setIsLoading] = useState(true);
 
-    // Simulating loading state (for demonstration)
     React.useEffect(() => {
-        // Simulate a delay to showcase the loading skeletons
-        setTimeout(() => setIsLoading(false), 2000);
+        setTimeout(() => setIsLoading(false), 0);
     }, []);
 
     const handleSectionChange = (section) => {
+        console.log("DOOD");
+        console.log("Sec",section);
         setActiveSection(section);
+        console.log("Sec",section);
     };
 
     const handleRunTestCases = (code, language, quesName) => {
@@ -57,10 +58,12 @@ const Code = () => {
     };
 
     const handleSubmissionResponse = (status) => {
-        if (status) {
-            setActiveSection('submission');
-        } else {
-            setActiveSection('description');
+        console.log("DO");
+        if(status){
+            setActiveSection('');
+            setTimeout(()=>{
+                setActiveSection('submission');
+            },10);
         }
     };
 

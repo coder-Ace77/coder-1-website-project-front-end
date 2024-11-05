@@ -85,6 +85,8 @@ const RightSection = ({ onSubmissionResponse, onRunTestCases, isRunningTests }) 
                     setNotification({ show: true, message, isSuccess: false });
                 }else if(message==="Wrong ans"){
                     setNotification({ show: true, message, isSuccess: false });
+                }else if(message==="Run time error"){
+                    setNotification({ show: true, message, isSuccess: false });
                 }else {
                     setNotification({ show: true, message, isSuccess: status });
                 }
